@@ -8,6 +8,7 @@ class ChatMessage(BaseModel):
 class ChatRequest(BaseModel):
     model: Optional[str] = None
     messages: List[ChatMessage]
+    conversation_id: Optional[int] = None
 
 class ChatResponse(BaseModel):
     content: str

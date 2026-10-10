@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from core.config import settings
-from routers import chat
+from routers import chat, conversations
+from db import init_db
 
 app = FastAPI(title=settings.PROJECT_NAME)
 
@@ -12,7 +13,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.on_event("startup")
+def on_startup():
+    init_db()
+
 app.include_router(chat.router)
+app.include_router(conversations.router)
 
 @app.get("/health")
 async def health():

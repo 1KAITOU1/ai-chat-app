@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import { ref, nextTick } from 'vue'
+import { ref, reactive, nextTick } from 'vue'
 import MessageItem from '../components/MessageItem.vue'
 import { useConversationStore } from '../stores/conversation'
 
@@ -56,7 +56,7 @@ async function send() {
   input.value = ''
   store.loading = true
 
-  const aiMsg = { role: 'assistant', content: '' }
+  const aiMsg = reactive({ role: 'assistant', content: '' })
   store.messages.push(aiMsg)
 
   currentController = new AbortController()
